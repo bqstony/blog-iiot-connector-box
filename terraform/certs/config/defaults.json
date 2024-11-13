@@ -1,0 +1,6 @@
+{
+	"ca-url": "https://localhost",
+	"ca-config": "/mnt/c/Source/github/bqstony/blog-iiot-connector-box/terraform/certs/config/ca.json",
+	"fingerprint": "2401437e7036b73bf28d8433e3400ee453ad6dac8d4084e829676165c069865d",
+	"root": "/mnt/c/Source/github/bqstony/blog-iiot-connector-box/terraform/certs/certs/root_ca.crt"
+}

@@ -1,0 +1,46 @@
+{
+	"root": "/mnt/c/Source/github/bqstony/blog-iiot-connector-box/terraform/certs/certs/root_ca.crt",
+	"federatedRoots": null,
+	"crt": "/mnt/c/Source/github/bqstony/blog-iiot-connector-box/terraform/certs/certs/intermediate_ca.crt",
+	"key": "/mnt/c/Source/github/bqstony/blog-iiot-connector-box/terraform/certs/secrets/intermediate_ca_key",
+	"address": "127.0.0.1:443",
+	"insecureAddress": "",
+	"dnsNames": [
+		"localhost"
+	],
+	"logger": {
+		"format": "text"
+	},
+	"db": {
+		"type": "badgerv2",
+		"dataSource": "certs/db",
+		"badgerFileLoadingMode": ""
+	},
+	"authority": {
+		"provisioners": [
+			{
+				"type": "JWK",
+				"name": "iiot",
+				"key": {
+					"use": "sig",
+					"kty": "EC",
+					"kid": "XPaRLfBIvSAkNg1mUMHzB0h0tfLv74hmd347Jb6e8Sk",
+					"crv": "P-256",
+					"alg": "ES256",
+					"x": "6BldnZcapTjiDWjBaFtcuRGAM3j2pIU2bxX6weauayE",
+					"y": "jiJaZgTiqALVLSxEQkaNT1WrYFzgzk2H4wQlLxInUXU"
+				},
+				"encryptedKey": "eyJhbGciOiJQQkVTMi1IUzI1NitBMTI4S1ciLCJjdHkiOiJqd2sranNvbiIsImVuYyI6IkEyNTZHQ00iLCJwMmMiOjYwMDAwMCwicDJzIjoicWVRdG5tWWFFYjVFY3J6Z3huQW82USJ9.Lc8ayZ4YkwR5UXWk54nLrByID5T32EQm1bvBewjWSQpPqnnv9_GO7w.5uItYemzyRBp-EEu.VcEaqT5jtDV4javNSs_jaHEtUw9mSq0H_4xABux7R2DxJZZYT3jheGHVorwflzneWQ5z7m18Hni9Gj076_Z8HR5RyAufYx3JlBPQEkqTxykz6GA15mMxTN4XQuKvK-U0aWfv6KR2RvzUMwyK9ZD3wdTqdmO0tMfNaY45twzjK24MYBmlFBW3BbKAt4suHqVjKhWfjVScwHVPFy76LehZ4c0FtvPl_ptwJVtbVR2L5ixvupQJLHaH5XB4ZxcTg4Nkh5zkwrcc4tU56jZYeiZ-764N1Gh5cb-UW59wy43PojYN_WtC5-mwwtHhCzqXooObniTFV9v7VkZM-K4okW4.Poa0WgD98Yvj4PdGHbHqFA"
+			}
+		]
+	},
+	"tls": {
+		"cipherSuites": [
+			"TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+			"TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+		],
+		"minVersion": 1.2,
+		"maxVersion": 1.3,
+		"renegotiation": false
+	}
+}
