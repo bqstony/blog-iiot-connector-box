@@ -1,7 +1,7 @@
-resource "azurerm_resource_group" "iiot_rg" {
-  name     = "${var.application_short}-${var.location_short}-iiot-rg"
-  location = var.location
-}
+##############################################################
+# Description:
+# This template is setting up the Event Grid with MQTT support.
+##############################################################
 
 # ╔══════════════════════════════════════════════════════════╗
 # ║                        Event Grid                        ║
@@ -26,6 +26,42 @@ resource "azapi_resource" "evgn" {
         state = "Enabled"
         maximumClientSessionsPerAuthenticationName = 1
         maximumSessionExpiryInHours = 4
+        routeTopicResourceId = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourcegroups/${azurerm_resource_group.iiot_rg.name}/providers/Microsoft.EventGrid/namespaces/${var.application_short}-${var.location_short}-evgn/topics/machine"
+        routingEnrichments = {
+          dynamic = [
+            {
+              key = "evgauthname",
+              value = "$${client.authenticationName}"
+            },
+            {
+              key = "evgclienttype",
+              value = "$${client.attributes.type}"
+            },
+            {
+              key = "evgpfi"
+              value = "$${mqtt.message.pfi}"
+            },
+            {
+              key = "mqtt5responsetopic",
+              value = "$${mqtt.message.responseTopic}"
+            },
+            {
+              key = "mqtt5topicname",
+              value = "$${mqtt.message.topicName}"
+            },
+            {
+              key = "mqtt5userproperties",
+              value = "$${mqtt.message.userProperties.x}"
+            }
+          ]
+          static = [
+            {
+              key = "eventgridnamespace"
+              valueType = "String"
+              value = "${var.application_short}-${var.location_short}-evgn"
+            }
+          ]
+        }
       }
     }
     sku = {
@@ -34,6 +70,10 @@ resource "azapi_resource" "evgn" {
     }
   }
 }
+
+# ┌──────────────────────────────────────────────────────────┐
+# │                  Client with Groups                      │
+# └──────────────────────────────────────────────────────────┘
 
 # client group that includes the clients that need access to publish or subscribe on the same MQTT topic.
 resource "azapi_resource" "device_clientgroup" {
@@ -73,6 +113,9 @@ resource "azapi_resource" "edge01_device_client" {
   }
 }
 
+# ┌──────────────────────────────────────────────────────────┐
+# │                     Topic & Permissions                  │
+# └──────────────────────────────────────────────────────────┘
 # topic channel for machine
 resource "azapi_resource" "machine_topic" {
   type = "Microsoft.EventGrid/namespaces/topics@2023-12-15-preview"
@@ -130,3 +173,7 @@ resource "azapi_resource" "device_allow_subscribe_to_machines_topicspace" {
     }
   }
 }
+
+# ┌──────────────────────────────────────────────────────────┐
+# │                namespace Topic subscription              │
+# └──────────────────────────────────────────────────────────┘

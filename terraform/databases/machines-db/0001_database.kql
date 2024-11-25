@@ -1,0 +1,6 @@
+// This Script set the database policy on Azure Data Explorer
+//
+
+// Enable Streaming ingestion per database
+// HintAllocatedRate=the hourly volume of data in gigabytes expected, helps the system adjust the amount of resources that are allocated
+.alter database [machines-db] policy streamingingestion '{"IsEnabled": true, "HintAllocatedRate": 0.1}'

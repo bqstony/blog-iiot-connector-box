@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: edge
+spec:
+  #hostNetwork: true
+  containers:
+  - name: rabbitmq
+    image: docker.io/rabbitmq:4.0.3-management
+    ports:
+    # MQTT Listener port non-tls: 1883
+    - containerPort: 1883
+      hostPort: 1883
+    # management web interface notls http
+    - containerPort: 15672
+      hostPort: 15672
+    # default TCP Listener port: 5672
+    # - containerPort: 5672
+    #   hostPort: 5672
+      # management notls port: 15672
+      # Prometheus metric http non-tls port: 15692
+    # env:
+    # - name: INFLUXDB_URL
+    #   value: http://localhost:8086
+    volumeMounts:
+    # - name: log4tc-influxdb-storage
+    #   mountPath: /var/lib/influxdb
+    - name: rabbitmq-enabled-plugins
+      mountPath: /etc/rabbitmq/enabled_plugins
+    - name: rabbitmq-init
+      # All files in /docker-entrypoint-initdb.d werden beim neuen Containerstart ausgeführt
+      mountPath: /docker-entrypoint-initdb.d/initdb.iql
+    - name: rabbitmq-config
+      mountPath: /etc/rabbitmq/rabbitmq.conf
+    - name: rabbitmq-definition
+      mountPath: /etc/rabbitmq/rabbitmq_definitions.json
+    - name: servicebus-root-cert
+      mountPath: /etc/rabbitmq/certs/digicertglobalrootg2.pem
+  # use eclipse hono to forward rabbitmq messages to the mqtt broker with a bridge
+
+  volumes:
+  # todo: mount queue data to local storage
+  # - name: log4tc-influxdb-storage
+  #   # Mounte ein lokales Verzeichnis bei lokaler kubernetes-Umgebungen
+  #   hostPath:
+  #     path: ./data/log4tc-influxdb-storage
+  #     type: DirectoryOrCreate
+  - name: rabbitmq-enabled-plugins
+    hostPath:
+      path: ./enabled_plugins
+      type: File
+  - name: rabbitmq-init
+    hostPath:
+      path: ./rabbitmq_init.sh
+      type: File
+  - name: rabbitmq-config
+    hostPath:
+      path: ./rabbitmq.conf
+      type: File
+  - name: rabbitmq-definition
+    hostPath:
+      path: ./rabbitmq_definitions.json
+      type: File
+  - name: servicebus-root-cert
+    hostPath:
+      path: ./certs/digicertglobalrootg2.pem
+      type: File

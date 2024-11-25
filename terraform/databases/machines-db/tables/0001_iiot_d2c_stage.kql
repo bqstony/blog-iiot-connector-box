@@ -1,0 +1,24 @@
+// This Script create the Ingestion stage Table on Azure Data Explorer for the event grid (device to cloud) d2c messages
+//
+
+// Create Stage Table of dynamic to ingest data on database
+.create-merge table iiot_d2c_stage (payload: dynamic)
+
+// We also need to add a json ingestion mapping to instruct the cluster to put the entire Json message from the Event hub into staging table
+// .show table iiot_d2c_stage ingestion json mapping "iiot_d2c_stage_mapping"
+.create-or-alter table ['iiot_d2c_stage'] ingestion json mapping 'iiot_d2c_stage_mapping' '[{"column":"payload","path":"$","datatype":"dynamic"}]'
+
+// Enable Streaming ingestion per table
+// Use the classic (bulk) ingestion instead of streaming ingestion when the amount of data grows to more than 4 Gb per hour per table.
+// .show table iiot_d2c_stage policy streamingingestion
+.alter table iiot_d2c_stage policy streamingingestion enable
+
+// Alternative use batching ingestion
+// .alter table ['iiot_d2c_stage'] policy ingestionbatching
+// ```
+// {
+//     "MaximumBatchingTimeSpan" : "00:01:00",
+//     "MaximumNumberOfItems" : 25000,
+//     "MaximumRawDataSizeMB": 4096
+// }
+// ```
