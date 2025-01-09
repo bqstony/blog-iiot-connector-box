@@ -2,7 +2,7 @@
 
 ## Einleitung
 
-Auf einer Beckhoff RT Linux Distribution (Debian based) soll neben dem TwinCAT Runtime System auch  Podman ausgeführt werden um OCI-Images auszuführen.
+Auf einer Beckhoff RT Linux Distribution (Debian based) soll neben dem TwinCAT Runtime System auch Podman ausgeführt werden um OCI-Images auszuführen.
 
 Es soll ein RabbitMQ-Container ausgeführt werden, der opc-ua pubsub messages empfängt, in eine queue umleitet und danach auf einen in der cloud laufenden mqtt-broker weiterleitet. Dafür wird das RabbitMQ Shovel Plugin verwendet.
 

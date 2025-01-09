@@ -1,28 +1,30 @@
 # IIoT Connector Box – Skalierbarer Retrofit Baukasten für die Industrie 4.0
 ## Einleitung
-Die Digitalisierung der industriellen Produktion schreitet rasant voran, und Unternehmen stehen vor der Herausforderung, bestehende Maschinenparks in smarte, vernetzte Systeme zu integrieren. Doch wie gelingt der Schritt vom klassischen Maschinenpark zur datengesteuerten Fabrik, ohne dabei in kostspielige Neuanschaffungen zu investieren? Hier kommt das Konzept der IIoT Connector Box ins Spiel – ein skalierbarer Retrofit-Baukasten, der bestehende brownfield Anlagen schnell und effizient in das Zeitalter des Industrial Internet of Things (IIoT) bringt.
+Die Digitalisierung der industriellen Produktion schreitet rasant voran, und Unternehmen stehen vor der Herausforderung, bestehende Maschinenparks in smarte, vernetzte Systeme zu integrieren. Doch wie gelingt der Schritt vom klassischen Maschinenpark zur Daten-getriebenen Fabrik, ohne dabei in kostspielige Neuanschaffungen von Maschinen zu investieren? Hier kommt das Konzept der IIoT Connector Box ins Spiel – ein skalierbarer Retrofit-Baukasten, der bestehende brownfield Anlagen schnell und effizient in das Zeitalter des Industrial Internet of Things (IIoT) bringt.
 
-In diesem Blogbeitrag erfahren Sie meinen Lösungsansatz, wie ein Edge Device als Herzstück der Lösung fungiert, um Maschinendaten zu erfassen, zu verarbeiten und in Echtzeit an zentrale Systeme oder die Cloud weiterzuleiten. Wir werfen einen Blick auf die allgemeinen zugrunde liegende Struktur bei der Umsetzung der Maschinen Datenerfassung, eine konkrete Mögliche Umsetzungsvariante und die verwendeten Technologien und wie eine flexible und modulare Architektur Unternehmen dabei unterstützt, ihre Digitalisierung mit minimalem Aufwand zu skalieren.
+In diesem Blogbeitrag erfahren Sie meinen Lösungsansatz, wie ein Edge Device als Herzstück der Lösung fungiert, um Maschinendaten zu erfassen, zu verarbeiten und in Echtzeit an zentrale Systeme oder die Cloud weiterzuleiten. Wir werfen einen Blick auf die allgemeinen zugrunde liegende Struktur bei der Umsetzung der Maschinen Datenerfassung, eine konkrete Mögliche Umsetzungsvariante und die verwendeten Technologien und wie eine flexible und modulare Architektur Unternehmen dabei unterstützt, ihre Digitalisierung mit vertretbaren Aufwand zu skalieren.
 
 Lassen Sie uns die Welt der IIoT Connector Box gemeinsam entdecken und die Möglichkeiten für eine smarte und zukunftsfähige Produktion ausloten!
 
-## Architekturentscheidungen und Business Anforderungen im Fokus
-Die erfolgreiche Umsetzung eines IIoT-Projekts beginnt mit den grundlegenden Architekturentscheidungen. Diese legen nicht nur die Basis für die technische Umsetzung, sondern beeinflussen auch nachhaltige und zukunftssichere Infrastruktur die zum Unternehmen passen. Den hier liegt meiner Meinung nach der Knackpunkt, jedes Unternehmen hat seine eigene IT Umgebung und Anforderungen, so wie ihre eigenes Applikations-Ecosystem das es im Einsatz hat, dies gilt es zu berücksichtigen. Im Idealfall kann man auf bereits eingesetzten und bekannte Systeme aufbauen wenn es darum geht die Maschinendaten zu verarbeiten und zu visualisieren. Auch die Anforderungen an das OT Netzwerk und die Sicherheit sind entscheidend bei der Auswahl der passenden Architektur. Hier gibt es sicherlich Gemeinsamkeiten in den Einsatzgebieten, doch oft liegt der Teufel im Detail und kann Branchen abhängig variieren.
+## Business Anforderungen und Architekturentscheidungen im Fokus
+Die erfolgreiche Umsetzung eines IIoT-Projekts beginnt mit den grundlegenden Architekturentscheidungen. Diese können jedoch nicht getroffen werden, ohne vorher die Business Anforderungen zu kennen. Den ohne konkretisierte, festgehaltene qualitative Anforderungen so wie das ermitteln der Fachlichen Ziele, ist eine Software Architektur nur die hälfte Wert. Den nur was dem Business am Ende einen Mehrwert bietet, macht überhaupt sind, in Software zu giessen. Sobald dieses Verständnis vorhanden ist, kann die technische Grundlage geschaffen werden, um eine nachhaltige und zukunftssichere IIoT Infrastruktur zu entwerfen, die zum Unternehmen passt. Also einfach gesagt: `Wir müssen wissen, was das Business eigentlich wirklich will!`
 
-Bei der Auswahl einer passenden Lösung zur Maschinen-Datenerfassung stehen meiner Meinung nach vor allem folgende Fragestellungen im Vordergrund die man sich stellen sollte:
-1. Welche Abhängigkeiten möchte man eingehen? _Möchte man abhängig von einem der grossen Cloud Anbieter sein, ist man bereit Lizenzen zu zahlen, möchte man gebunden sein an einer der Vielen IIoT Platform Anbieter oder setzt mal voll auf Open Source?_
-2. Möchte man eine "Out of the box" Lösung oder eine individuelle Lösung?
-3. Welche Architektur Qualität Anforderungen sind wichtig in meinem Umfeld? 
-4. Wo werden die Produktionsdaten, Fertigungs- und Auftragsdaten mit den Maschinendaten zusammengeführt? _In der Cloud, im eigenen Rechenzentrum oder auf einem Edge Device?_
-5. Wo sollen die Insights generiert werden und welchen Nutzen kann ich daraus ziehen?
-6. Welchen Messintervalle sind für meine Use Cases sinnvoll? _Reicht es aus wenn die Daten alle 5 Minuten oder mehr zu erfassen oder muss es jede Sekunde oder weniger sein? Ist es allenfalls sinnvoller am edge Daten zu dezimieren oder eine datenaufbereitung durchzuführen?_
-7. Muss ich auf den erlangten Insights reagieren können? _Müssen dies direkten Einfluss auf den Produktionsprozess haben oder Benachrichtigungen wie Events an weitere Systeme ausgelöst werden?_
-8. Wie schnell muss man bezogen auf Insights reagieren können? _Reicht es aus wenn die Daten einmal am Tag verarbeitet werden oder muss es in Echtzeit sein?_
-9. Welche Systeme und tools setzt man bereits ein und wie gut können diese in die neue Lösung integriert werden? _Ist man bereit neues zu lernen, neue Systeme einzuführen und neue Prozesse zu etablieren?_
+Jedes Unternehmen hat seine eigene IT Umgebung und Anforderungen die es zu berücksichtigen git. So wie ihr eigenes Applikation-Ecosystem, dass bereits im Einsatz ist. Im Idealfall kann man auf bereits eingesetzten, bekannte und funktionierende Systeme aufbauen. Wenn es darum geht, die Maschinendaten zu erfassen, zu visualisieren und zu verarbeiten. Auch die Anforderungen an das OT Netzwerk und die Sicherheit sind entscheidend bei der Auswahl der passenden Lösung. Hier gibt es sicherlich Gemeinsamkeiten aus der bestehenden IT Umgebung die übernommen werden können. Doch oft liegt der Teufel im Detail, denn es sind doch unterschiedliche Anforderungen vorhanden.
+
+Bei der Auswahl einer passenden technischen Lösung zur Maschinen-Datenerfassung stehen folgende Fragestellungen im Vordergrund die man sich stellen sollte:
+1. Welche Abhängigkeiten möchte man eingehen? _Möchte man abhängig von einem der grossen Cloud Anbieter sein, ist man bereit Lizenzen zu zahlen, möchte man gebunden sein an einer der vielen IIoT Platform Anbieter oder setzt mal voll auf Open Source und Eigenentwicklung?_
+2. Möchte man eine "Out of the box" Lösung oder eine individuelle Lösung? _Obwohl die hier betrachtete Brownfield Anbindung per se immer eine individuelle Lösung ist._
+3. Was sind relevante Prozessdaten die mir bei der Prozess Optimierung, Wartung, Instandhaltung und Planung unterstützen können? _Dies kann tatsächlich nicht so einfach beantwortet werden und bedingt allenfalls einem explorativen Ansatz._  
+4. Welche Qualitäts-Anforderungen sind wichtig in meinem Umfeld? _Idealerweise beschreibt man diese durch Qualitätsszenarien_ 
+5. Wo werden die Produktionsdaten, Fertigungs- und Auftragsdaten mit den Maschinendaten zusammengeführt? _In der Cloud, im eigenen Rechenzentrum oder auf einem Edge Device?_
+6. Wo sollen die Insights generiert werden und welchen Nutzen kann ich daraus ziehen? _Der Nutzen ist ein zentraler Punkt der am besten vor der Umsetzung klar definiert wird._
+7. Welchen Messintervalle sind für meine Use Cases sinnvoll? _Reicht es aus wenn die Daten alle 5 Minuten oder mehr zu erfassen oder muss es jede Sekunde oder weniger sein? Ist es allenfalls sinnvoller am edge Daten zu dezimieren oder eine datenaufbereitung eventuell auch mit ML durchzuführen? Hier kann man die Business Anforderungen und Qualitätsanforderung zücken um die richtige Entscheidung zu treffen._
+8. Muss ich auf den erlangten Insights reagieren können und wie schnell soll das geschehen? _Ist ein direkter Einfluss auf den Produktionsprozess notwendig oder sollen Benachrichtigungen wie Events an weitere Systeme ausgelöst werden? Auch hier geben die Business Anforderungen die Antwort._
+9. Welche Systeme und tools setzt man bereits ein und wie gut können diese in die neue Lösung integriert werden? _Ist man bereit neues zu lernen, neue passendere Systeme einzuführen und neue Prozesse zu etablieren?_
 
 > Man muss sich im klaren sein, das es die «one fits it all» Lösung nicht gibt. Bei der Auswahl der für sich passenden Lösung sollte man nüchtern und realistisch an die Sache herangehen. Vor allem soll sie die Anforderung und Bedürfnisse des Unternehmens erfüllen und nicht umgekehrt.
 
-Ein weiteres hilfsmittel für die Entscheidungsfindung sind Architektur Qualitätsmerkmale zum Beispiel nach _ISO 25010 [1]_. Diese können dabei helfen, Entscheidungen zu treffen. Dabei definiert man drei bis fünf Merkmalen die für das Projekt am wichtigsten sind. Diese können zum Beispiel für die angestrebte Edge Lösung folgende sein:
+Ein gutes hilfsmittel für die Findung von Qualitätsmerkmale kann zum Beispiel die _ISO 25010 [1]_ sein. Sie kan dabei helfen, auf welche Merkmale zu achten ist. Dabei definiert man drei bis fünf top Qualitative Merkmalen die für das Projekt am wichtigsten sind. Diese können zum Beispiel für die angestrebte IIoT Connector Box Lösung folgende sein:
 
 1. **Erweiterbarkeit** - Es ist leicht, neue Funktionalität hinzuzufügen und die Lösung zu erweitern.
 2. **Austauschbarkeit** - Die Lösung ist Modular aufgebaut und es können einzelne Teile daraus durch andere ersetzt werden, ohne dass dies zu großen Problemen führt.
@@ -30,10 +32,12 @@ Ein weiteres hilfsmittel für die Entscheidungsfindung sind Architektur Qualitä
 4. **Korrektheit** - Die erfassten Informationen bilden die Realität ab
 5. **Zuverlässigkeit** - Die Lösung ist zuverlässig und funktioniert auch unter schwierigen Bedingungen.
 
-Ich möchte hier nicht weiter ins Detail gehen, doch es ist wichtig sich im klaren zu sein, welche Qualitätsmerkmale und Ansprüche es an die Lösung gibt.  
+Der nächste Schritt ist noch wichtiger, die Qualitätsszenarien definieren. Ich möchte hier jedoch nicht noch weiter ins Detail gehen, doch es ist wichtig sich im klaren zu sein, welche Ansprüche es an die Lösung gibt.  
+
+> Jedoch nochmals klar gesagt, die Business Anforderungen sind die Basis und der Grund warum wir überhaupt eine Lösung suchen. Die Technologie ist nur das Mittel zum Zweck und sollte nicht im Vordergrund stehen!
 
 ## Betrachtung einer möglichen Edge Architektur
-Als Vorbereitung auf diesen Blogbeitrag habe ich mir Gedanken gemacht, wie eine mögliche Edge Architektur für die Maschinendatenerfassung aussehen könnte. Dabei habe ich mich auf meine bereits gemachten Erfahrungen und das betrachten von unterschiedlichen IIoT Platform Lösungen gestützt. Meiner Ansicht nach, enthält eine Edge Lösung im grunde immer ähnliche zentrale Komponenten. Sie werden zwar je eingesetzten Technologien oder Anbieter unterschiedlich umgesetzt, enthalten jedoch die selben Merkmale. In folgender Abbildung habe ich versucht meine Sicht der Dinge vereinfacht darzustellen: 
+Als Vorbereitung auf diesen Blogbeitrag habe ich mir Gedanken gemacht, wie eine mögliche Edge Architektur für die Maschinendatenerfassung aussehen könnte. Dabei habe ich mich auf meine bereits gemachten Erfahrungen und das betrachten von unterschiedlichen IIoT Platform Lösungen gestützt. Meiner Ansicht nach, enthält eine Edge Lösung im Grunde immer ähnliche zentrale Komponenten. Sie werden zwar je eingesetzten Technologien oder Anbieter unterschiedlich umgesetzt, enthalten jedoch die selben Merkmale. In folgender Abbildung habe ich versucht meine Sicht der Dinge als Datenfluss vereinfacht darzustellen: 
 ![](assets/edgeArchitectur.drawio.png)
 
 Wie in der Abbildung ersichtlich, sind 3 zentrale Domänen zu erkennen: Die `Field Devices` links, das `Edge Device` in der Mitte und die `Company Infrastructure` rechts. Das können Beispielsweise Fertigungsmaschinen sein, also die Quelle der Daten, die es zu erfassen gilt. Das Edge Device ist das Herzstück der Lösung, das die Daten erfasst, verarbeitet und an die Unternehmensinfrastruktur weiterleitet. Die Unternehmensinfrastruktur ist der Ort, an dem die Daten verarbeitet, analysiert und in bestehende Systeme integriert werden. Allenfalls sollen auch Kommandos an die Maschinen oder an das Edge Device zurückgegeben werden. Der Primäre `Downstream` Kommunikationskanal in dieser Architektur ist in Richtung Company Infrastructure gerichtet, also primär das versenden der Telemetry Daten. In Richtung Upstream, also zum Edge Device und weiter zu den Field Devices, wird primär für wenige Steuer Kommandos und Konfigurationen genutzt. Es sei noch erwähnt, das der Einfachheit halber die Betrachtung von Authentication und Authorization, sowie die Sicherheit der Kommunikation nicht berücksichtigt wurde. Diese sind jedoch essentiell und müssen in einer realen Umsetzung berücksichtigt werden.
@@ -65,7 +69,7 @@ Wichtig ist eine **vorhandene und klare Anforderung**. Ist ein IIoT Projekt nich
 Es ist nicht mein Anliegen Angst zu schüren, einfach nur übertrieben realistisch darzulegen, was einem erwarten kann. Es muss aber nicht in jedem Fall so sein!
 
 ## Eine mögliche Umsetzungsvariante
-Bisher habe ich mich auf allgemeine Überlegungen und Entscheidungen konzentriert. Doch wie könnte eine konkrete Umsetzung einer IIoT Connector Box aussehen? Da ich gerne praktisch denke, mache ich auch gerne praktische Vorschläge. Der folgende Vorschlag basiert auf persönlichen Präferenzen. Es zeigt vielleicht auch auf, dass es wie bereits erwähnt, nicht die «one fits it all» Lösung gibt.
+Bisher habe ich mich auf allgemeine Überlegungen und Entscheidungen konzentriert. Doch wie könnte eine konkrete individuelle Umsetzung einer IIoT Connector Box aussehen? Da ich gerne praktisch denke, mache ich auch gerne praktische Vorschläge. Der folgende Vorschlag basiert auf persönlichen Präferenzen. Es zeigt vielleicht auch auf, dass es wie bereits erwähnt, nicht die «one fits it all» Lösung gibt. Auch gehe ich bewusst nicht auf eine out-of-the-box Lösung ein, sondern auf eine einfach gehaltene individuelle Lösungsvariante.
 
 In dieser Beispiel Variante zeige ich, wie man in einem Brown Field Szenario, einfache Maschinen Signale mit einem Edge Device erfassen und an eine zentrale Infrastruktur, in diesem Fall Azure Cloud, weiterleiten kann. Der Einfachheit halber ist nur ein unidirektionaler Weg aufgezeigt. Dies lässt sich natürlich wahlweise erweitern. Das Komplette Code Beispiel ist auf meinem _GitHub Repository [7]_ zu finden.
 
@@ -73,14 +77,21 @@ In dieser Beispiel Variante zeige ich, wie man in einem Brown Field Szenario, ei
 
 > ❓❓❓ ToDo: Beschreiben der Komponenten
 
+> ❓❓❓ Wie sieht so ein payload aus
 
+> ❓❓❓ Alex: bim stream chöntsch denn gad auno uf die schöne sache bezüglich datetypisierig, units, tags, metadate und transform vo z.b. opc-ua type uf protobuf messages igoh 
+
+> Stream erläutern mit Inhalt und wie die Daten aufgebaut sind.
+
+> ❓❓❓ Alex: aber zum komplettiere müsst me no beschriebe wieme denn die date konkret ufebringt und zwor ime enterprise umfeld nid eifach mit biz node-red dashboard und do bisch du jo uf guetem weg
+> 
 ## Fazit
 
 > «Technologie alleine bringt noch keinen Vorteil. Als erstes braucht es die Aufgabenstellung (Problem) und den passenden Use Case dazu. Danach kommt die Lösung.»
 
 tbd
 
-ich hoffe ich konnte:
+Das Ziel dieses Blogs war es:
 zum denken angeregt
 ein übersicht verschaft
 eine mögliche lösung präsentiert
